@@ -11,7 +11,9 @@
     "deploy": "npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
+    "axios": "^0.19.2",
     "vue": "^2.5.11",
+    "vue-axios": "^2.1.5",
     "vue2-google-maps": "^0.10.7"
   },
   "browserslist": [
