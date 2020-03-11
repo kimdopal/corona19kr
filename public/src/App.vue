@@ -27,8 +27,8 @@
         :position="{lat: m.lat, lng: m.lng}"
         :clickable="false"
         :draggable="false"
-        :icon="{url: 'https://image.flaticon.com/icons/png/512/37/37134.png',
-        scaledSize: {width: 40, height: 40}}"
+        :icon="{url: m.remain_stat != null ? markers[m.remain_stat] : markers.empty,
+        scaledSize: {width: 16, height: 16}}"
       />
     </GmapMap>
     <button class="resync-btn" v-on:click="getCurrentPos">내 위치</button>
@@ -62,7 +62,13 @@ export default {
       },
       zoom: 14,
       distance: 2000,
-      stores: []
+      stores: [],
+      markers: {
+        empty: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Fempty.png?alt=media&token=5f8ddf78-0a91-4fcd-bee0-f362f906c17d',
+        few: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Ffew.png?alt=media&token=e24a357d-d43d-4596-9ea5-665edf4fe6e5',
+        plenty: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Fplenty.png?alt=media&token=91e96743-5c4f-4a2b-8ef2-9b580865008a',
+        some: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Fsome.png?alt=media&token=b18f1bfd-4657-40bd-a69b-72446a5f016a'
+      }
     }
   },
   mounted() {
