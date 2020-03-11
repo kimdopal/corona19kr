@@ -104,6 +104,11 @@ export default {
   },
   mounted() {
     this.mode = new URL(location.href).searchParams.get('mode')
+    this.center = {
+      lat: Number(new URL(location.href).searchParams.get('lat')) || 37.5533876,
+      lng: Number(new URL(location.href).searchParams.get('lng')) || 126.9706454
+    }
+    this.zoom = Number(new URL(location.href).searchParams.get('zoom')) || 14
     console.log(`mounted. current mode is ${this.mode}`);
     this.getMaskGeo();
   },
