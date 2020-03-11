@@ -1,10 +1,14 @@
 <template>
   <div id="app">
     <GmapMap
-      :center="{lat:10, lng:10}"
-      :zoom="7"
-      map-type-id="terrain"
+      :center="{lat:lat, lng:lng}"
+      :zoom="zoom"
       style="width: 100%; height: 100%"
+      :options="{
+        streetViewControl: false,
+        mapTypeControl: false,
+        fullscreenControl: false,
+      }"
     >
     </GmapMap>
   </div>
@@ -16,7 +20,7 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: '',
+    key: 'AIzaSyA8fpmwbu3MGmCAHVlYkUEQkDdtg6dS0Vc',
     libraries: 'places',
   }
 })
@@ -25,7 +29,10 @@ export default {
   name: 'app',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      msg: 'Welcome to Your Vue.js App',
+      lat: 37.5533876,
+      lng: 126.9706454,
+      zoom: 14
     }
   }
 }
