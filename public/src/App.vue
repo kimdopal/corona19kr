@@ -25,11 +25,26 @@
         :key="index"
         v-for="(m, index) in stores"
         :position="{lat: m.lat, lng: m.lng}"
-        :clickable="false"
+        :clickable="true"
         :draggable="false"
         :icon="{url: m.remain_stat != null ? markers[m.remain_stat] : markers.empty,
         scaledSize: {width: 16, height: 16}}"
+        @click="showShopDetail(m)"
       />
+
+      <GmapInfoWindow
+        @closeclick="storeInfoWindow.show=false" 
+        :opened="storeInfoWindow.show"
+        :position="storeInfoWindow.pos"
+        :options="{
+              pixelOffset: {
+                width: 0,
+                height: -8
+              }
+            }"
+      >
+      <pre>{{storeInfoWindow.message}}</pre>
+      </GmapInfoWindow>
     </GmapMap>
     <button class="resync-btn" v-on:click="getCurrentPos">내 위치</button>
   </div>
@@ -68,6 +83,21 @@ export default {
         few: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Ffew.png?alt=media&token=e24a357d-d43d-4596-9ea5-665edf4fe6e5',
         plenty: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Fplenty.png?alt=media&token=91e96743-5c4f-4a2b-8ef2-9b580865008a',
         some: 'https://firebasestorage.googleapis.com/v0/b/corona19kr.appspot.com/o/markers%2Fsome.png?alt=media&token=b18f1bfd-4657-40bd-a69b-72446a5f016a'
+      },
+      storeInfoWindow: {
+        show: false,
+        pos: {
+          lat: 37.5533876,
+          lng: 126.9706454
+        },
+        message: '',
+        remain: null
+      },
+      remain: {
+        empty: '1개 이하',
+        few: '2개 이상 ~ 30개 미만',
+        plenty: '100개 이상',
+        some: '30개 이상 ~ 100개 미만'
       }
     }
   },
@@ -76,6 +106,14 @@ export default {
     this.getMaskGeo();
   },
   methods: {
+    showShopDetail(store) {
+      this.storeInfoWindow.remain = store.remain_stat || 'empty';
+      this.storeInfoWindow.show = true;
+      this.storeInfoWindow.pos.lat = store.lat;
+      this.storeInfoWindow.pos.lng = store.lng;
+      this.storeInfoWindow.message = `${store.name}\n${store.addr}\n남은 마스크 양: ${this.remain[this.storeInfoWindow.remain]}\n데이터 갱신: ${store.stock_at}`
+      console.log('store', store);
+    },
     updateCenter(event) {
       console.log('event', event.lat(), event.lng());
       this.lastMoved.lat = event.lat();
