@@ -17,7 +17,7 @@
         :position="center"
         :clickable="false"
         :draggable="false"
-        :icon="{url: 'https://firebasestorage.googleapis.com/v0/b/for-ww3.appspot.com/o/test-lab%2Fgame%20user.png?alt=media&token=f274ea01-ce82-48fe-a6c3-2244fb5ad926',
+        :icon="{url: mode == 'otaku' ? 'https://firebasestorage.googleapis.com/v0/b/for-ww3.appspot.com/o/test-lab%2Fgame%20user.png?alt=media&token=f274ea01-ce82-48fe-a6c3-2244fb5ad926' : null,
         scaledSize: {width: 48, height: 48}}"
       />
 
@@ -67,6 +67,7 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
+      mode: 'default',
       center: {
         lat: 37.5533876,
         lng: 126.9706454,
@@ -102,7 +103,8 @@ export default {
     }
   },
   mounted() {
-    console.log('mounted');
+    this.mode = new URL(location.href).searchParams.get('mode')
+    console.log(`mounted. current mode is ${this.mode}`);
     this.getMaskGeo();
   },
   methods: {
