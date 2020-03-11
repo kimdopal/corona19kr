@@ -113,7 +113,7 @@ export default {
       this.storeInfoWindow.show = true;
       this.storeInfoWindow.pos.lat = store.lat;
       this.storeInfoWindow.pos.lng = store.lng;
-      this.storeInfoWindow.message = `${store.name}\n${store.addr}\n남은 마스크 양: ${this.remain[this.storeInfoWindow.remain]}\n데이터 갱신: ${store.stock_at}`
+      this.storeInfoWindow.message = `${store.name}\n${store.addr}\n남은 마스크 양: ${this.remain[this.storeInfoWindow.remain]}\n데이터 갱신: ${store.stock_at}\n입고: ${store.stock_at}`
       console.log('store', store);
     },
     updateCenter(event) {
