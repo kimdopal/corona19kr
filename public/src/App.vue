@@ -27,7 +27,7 @@
         :position="{lat: m.lat, lng: m.lng}"
         :clickable="true"
         :draggable="false"
-        :icon="{url: m.remain_stat != null ? markers[m.remain_stat] : markers.empty,
+        :icon="{url: getMarkUrl(m, markers),
         scaledSize: {width: 16, height: 16}}"
         @click="showShopDetail(m)"
       />
@@ -99,6 +99,17 @@ export default {
         few: '2개 이상 ~ 30개 미만',
         plenty: '100개 이상',
         some: '30개 이상 ~ 100개 미만'
+      }
+    }
+  },
+  computed: {
+    getMarkUrl: () => {
+      return (store, markers) => {
+        const remain_stat = store.remain_stat;
+        if (Object.keys(markers).includes(remain_stat)) {
+          return markers[remain_stat]
+        }
+        return markers.empty
       }
     }
   },
