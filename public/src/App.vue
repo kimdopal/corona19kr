@@ -160,6 +160,14 @@ export default {
           this.getMaskGeo();
         }, err => {
           alert(`Cannot get current location. ${err.message}`)
+          app.center = {
+            lat: 37.5533876,
+            lng: 126.9706454
+          }
+          app.lastMoved = {
+            lat: 37.5533876,
+            lng: 126.9706454
+          }
         })
       }
     },
